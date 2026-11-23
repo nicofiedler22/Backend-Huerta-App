@@ -1,12 +1,7 @@
 package cl.duoc.backend_huertapp.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import lombok.*;
 
 @Entity
 @Table(name = "tareas")
@@ -14,40 +9,23 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TareaModel {
-
-@Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(nullable = false, length = 100)
+    @Column(name = "sector_id", nullable = false)
+    private Long sectorId;
+    @Column(name = "responsable_id", nullable = false)
+    private Long responsableId;
+    @Column(name = "titulo", nullable = false, length = 100)
     private String titulo;
-
-    @Column(length = 500)
+    @Column(name = "descripcion", nullable = false, length = 500)
     private String descripcion;
-
-    @Column(nullable = false, length = 30)
+    @Column(name = "tipo", nullable = false, length = 50)
     private String tipo;
-
-    @Column(nullable = false, length = 20)
+    @Column(name = "fecha_programada", nullable = false, length = 20)
+    private String fechaProgramada;
+    @Column(name = "estado", nullable = false, length = 50)
     private String estado;
-
-    @Column(name = "fecha_programada", nullable = false)
-    private LocalDate fechaProgramada;
-
-    @Column(name = "huerto_id", nullable = false)
-    private Long huertoId;
-
-    @Column(name = "usuario_id")
-    private Long usuarioId;
-
-    @Column(name = "fecha_creacion", updatable = false)
-    private LocalDateTime fechaCreacion;
-
-    @PrePersist
-    protected void onCreate() {
-        this.fechaCreacion = LocalDateTime.now();
-        if (this.estado == null) {
-            this.estado = "PENDIENTE";
-        }
-    }
+    @Column(name = "comentarios_estudiante", nullable = false, columnDefinition = "TEXT")
+    private String comentariosEstudiante;
 }
